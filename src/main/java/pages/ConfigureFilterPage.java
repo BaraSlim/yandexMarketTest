@@ -34,23 +34,30 @@ public class ConfigureFilterPage {
     @FindBy(xpath = "//a[@role = 'button' and @type = 'button']//span[contains(text(), 'Показать подходящие')]")
     WebElement filterApplyBtn;
 
+    // Установка курсора на интересующий блок (цена, производитель..)
     public void chooseFilterBlock(String blockName) {
         actionBuilder.click(filterBlock.findElement(By.xpath("[contains(text(), '" + blockName + "')]")));
     }
 
+    // Выбор ранга стоимости
     public void setPriceRange(String from, String to) {
         actionBuilder.click(priceFrom).sendKeys(from);
         actionBuilder.click(priceTo).sendKeys(to);
     }
 
-    public void chooseAllProducer(String producerName, String producerName2) {
+    // Выбор производителей
+    public void chooseAllProducer(String[] producerNames) {
         actionBuilder.click(openAllProducerBtn);
-        actionBuilder.click(producerListItem.findElement(By.xpath("[contains(text(), '" + producerName + "')]")));
-        actionBuilder.click(producerListItem.findElement(By.xpath("[contains(text(), '" + producerName2 + "')]")));
+        for (int i = 0; i < producerNames.length; i++) {
+            actionBuilder.click(producerListItem.findElement(By.xpath("[contains(text(), '" + producerNames[i] + "')]")));
+        }
     }
-    public void applyingFilters(){
+
+    // Подтверждение применения фильтра
+    public void applyingFilters() {
         actionBuilder.click(filterApplyBtn);
     }
+
 }
 
 

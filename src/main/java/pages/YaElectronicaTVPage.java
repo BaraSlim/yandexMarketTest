@@ -19,9 +19,6 @@ public class YaElectronicaTVPage {
     @FindBy(xpath = "//span[contains(text(),'Все фильтры')]")
     WebElement allFiltersBtn;
 
-    @FindBy(xpath = "//button[@role='listbox']")
-    WebElement setProductPageSize;
-
     @FindBy(xpath = "//div[@id = 'uniq157606814691810']")
     WebElement show48Item;
 
@@ -34,18 +31,30 @@ public class YaElectronicaTVPage {
     @FindBy(xpath = "//div[@data-id]//a//img[@class='image']")
     WebElement productList;
 
+    @FindBy(xpath = "//div[@data-id]")
+    WebElement someItem;
+
+
+    // Развернуть все фильтры
     public void openAllFilters() {
         actionBuilder.click(allFiltersBtn);
     }
-
-    public void changeProductPageSize(String size) {
-        if (!(setProductPageSize.getText().equals("Показывать по " + size + ""))) {
-            actionBuilder.click(showItemSwitchBtn);
-            //расписать логику переключения кнопки с 48 на 12 мб switch
+    // Изменить кол-во позиций на странице
+    public void changeProductPageSize(int size) {
+        actionBuilder.click(showItemSwitchBtn);
+        switch (size) {
+            case (12):
+                actionBuilder.click(show12Item);
+                break;
+            case (48):
+                actionBuilder.click(show48Item);
+                break;
         }
     }
-    public void getProductList(int number){
-
+// Запомнить название первого элемента в списке
+    public void chooseSomeItem(int itemNumber){
+        String itemName = driver.findElement(By.xpath("//div[@data-id]["+itemNumber+"]"))
+                .findElement(By.xpath("//a//img")).getAttribute("title");
 
     }
 }
