@@ -1,5 +1,6 @@
 package pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,6 +12,7 @@ import steps.BaseSteps;
 public class YaElectronicaTVPage {
     WebDriver driver = BaseSteps.getDriver();
     Actions actionBuilder = new Actions(driver);
+    String itemName;
 
     public YaElectronicaTVPage() {
         PageFactory.initElements(driver, this);
@@ -34,11 +36,18 @@ public class YaElectronicaTVPage {
     @FindBy(xpath = "//div[@data-id]")
     WebElement someItem;
 
+    @FindBy(xpath = "//input[@id='header-search']")
+    WebElement mainSearchInput;
+
+    @FindBy(xpath = "//button[@type='submit']")
+    WebElement searchButton;
+
 
     // Развернуть все фильтры
     public void openAllFilters() {
         actionBuilder.click(allFiltersBtn);
     }
+
     // Изменить кол-во позиций на странице
     public void changeProductPageSize(int size) {
         actionBuilder.click(showItemSwitchBtn);
@@ -51,10 +60,23 @@ public class YaElectronicaTVPage {
                 break;
         }
     }
-// Запомнить название первого элемента в списке
-    public void chooseSomeItem(int itemNumber){
-        String itemName = driver.findElement(By.xpath("//div[@data-id]["+itemNumber+"]"))
-                .findElement(By.xpath("//a//img")).getAttribute("title");
 
+    // Запомнить название первого элемента в списке
+    public void chooseSomeItem(int itemNumber) {
+        itemName = driver.findElement(By.xpath("//div[@data-id][" + itemNumber + "]"))
+                .findElement(By.xpath("//a//img")).getAttribute("title");
+    }
+
+    // Найти в строке поиска по названию первого элемента из списка
+    public void searchItemOnMainSearch() {
+        actionBuilder.click(mainSearchInput).sendKeys(itemName);
+        actionBuilder.click(searchButton);
+    }
+
+    //Проверить полученные результаты поиска и сохраненного значения
+    public void compareResults(int itemNumber) {
+        Assert.assertEquals("Найденный элеент не соответсвует заявленному",
+                driver.findElement(By.xpath("//div[@data-id][" + itemNumber + "]"))
+                        .findElement(By.xpath("//a//img")).getAttribute("title"), itemName);
     }
 }

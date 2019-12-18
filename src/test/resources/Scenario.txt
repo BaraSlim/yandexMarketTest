@@ -25,10 +25,3 @@
 12. В поисковую строку ввести запомненное значение. YaElectronicaTVPage
 
 13. Найти и проверить, что наименование товара соответствует запомненному значению. YaElectronicaTVPage
-
-
-
-
-
-    public void checkProductItem(int productNumber){
-        driver.findElement(By.xpath("//a/img[@class = 'image']")));

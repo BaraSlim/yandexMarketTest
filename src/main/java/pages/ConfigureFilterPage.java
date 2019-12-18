@@ -40,13 +40,13 @@ public class ConfigureFilterPage {
     }
 
     // Выбор ранга стоимости
-    public void setPriceRange(String from, String to) {
+    public void choosePrice(String from, String to) {
         actionBuilder.click(priceFrom).sendKeys(from);
         actionBuilder.click(priceTo).sendKeys(to);
     }
 
     // Выбор производителей
-    public void chooseAllProducer(String[] producerNames) {
+    public void chooseProducer(String[] producerNames) {
         actionBuilder.click(openAllProducerBtn);
         for (int i = 0; i < producerNames.length; i++) {
             actionBuilder.click(producerListItem.findElement(By.xpath("[contains(text(), '" + producerNames[i] + "')]")));
@@ -54,7 +54,7 @@ public class ConfigureFilterPage {
     }
 
     // Подтверждение применения фильтра
-    public void applyingFilters() {
+    public void submitFilters() {
         actionBuilder.click(filterApplyBtn);
     }
 

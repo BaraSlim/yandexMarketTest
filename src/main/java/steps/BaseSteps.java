@@ -10,6 +10,11 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Базовый класс шагов, который собирает глобальные методы библиотек и фреймворков Before/AfterClass Attachment
+ * Создание driver, properties const
+ */
+
 public class BaseSteps {
     protected static WebDriver driver;
     private static Properties properties = TestProperties.getInstance().getProperties();
