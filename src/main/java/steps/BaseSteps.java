@@ -2,7 +2,7 @@ package steps;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
-import org.openqa.selenium.*;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import util.TestProperties;
 
@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class BaseSteps {
+
     protected static WebDriver driver;
     private static Properties properties = TestProperties.getInstance().getProperties();
     protected static String targetUrl = properties.getProperty("target.url");
@@ -25,7 +26,7 @@ public class BaseSteps {
     }
 
     @Before
-    public static void setUp() throws Exception {
+    public static void setUp() {
         System.setProperty("webdriver.chrome.driver", "drv/chromedriver.exe");
         driver = new ChromeDriver();
         driver.get(targetUrl);
@@ -39,16 +40,8 @@ public class BaseSteps {
         driver.switchTo().window(String.valueOf(tabs.get(tabNumber)));      //переключение на вторую вкладку
     }
 
-    public static void sleep(long sleep) {
-        try {
-            Thread.sleep(sleep);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     @After
-    public static void tearDown() throws Exception {
+    public static void tearDown() {
         driver.quit();
     }
 }

@@ -9,4 +9,5 @@ import org.junit.runner.RunWith;
         plugin = {"util.AllureReporter"}
 )
 public class CucumberRunner {
+
 }

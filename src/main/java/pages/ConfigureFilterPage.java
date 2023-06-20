@@ -9,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import steps.BaseSteps;
 
 public class ConfigureFilterPage {
+
     WebDriver driver = BaseSteps.getDriver();
     Actions actionBuilder = new Actions(driver);
 
